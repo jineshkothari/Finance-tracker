@@ -8,7 +8,7 @@
 <meta name="apple-mobile-web-app-title" content="Finance"/>
 <title>Family Finance</title>
 <style>
-:root {
+:root{
   --bg:#f5f4f0;--surface:#fff;--surface2:#f0efe9;
   --border:rgba(0,0,0,0.09);--border2:rgba(0,0,0,0.15);
   --text:#181715;--text2:#68665f;--text3:#a09e98;
@@ -18,17 +18,13 @@
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
 html,body{height:100%;overflow:hidden;}
 body{font-family:-apple-system,'SF Pro Text','Helvetica Neue',sans-serif;background:var(--bg);color:var(--text);font-size:15px;}
-
-/* SCREENS */
 #s-login{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;padding:1.5rem;background:var(--bg);z-index:500;}
 #s-app{position:fixed;inset:0;display:none;flex-direction:column;}
-
-/* LOGIN */
 .lbox{width:100%;max-width:340px;background:var(--surface);border-radius:20px;border:1px solid var(--border2);padding:1.75rem 1.5rem;}
 .ltitle{font-size:22px;font-weight:700;margin-bottom:2px;}
 .lsub{font-size:13px;color:var(--text2);margin-bottom:1.25rem;}
 .utabs{display:flex;gap:6px;margin-bottom:1rem;}
-.utab{flex:1;padding:9px;text-align:center;border-radius:var(--rs);border:1px solid var(--border2);background:var(--surface2);font-size:13px;font-weight:500;cursor:pointer;color:var(--text2);transition:all .12s;}
+.utab{flex:1;padding:9px;text-align:center;border-radius:var(--rs);border:1px solid var(--border2);background:var(--surface2);font-size:13px;font-weight:500;cursor:pointer;color:var(--text2);}
 .utab.on{background:var(--text);color:#fff;border-color:var(--text);}
 .flabel{font-size:12px;color:var(--text2);margin-bottom:4px;display:block;}
 .finput{width:100%;padding:11px 13px;border:1px solid var(--border2);border-radius:var(--rs);font-size:16px;background:var(--surface);color:var(--text);outline:none;font-family:inherit;margin-bottom:10px;}
@@ -36,11 +32,15 @@ body{font-family:-apple-system,'SF Pro Text','Helvetica Neue',sans-serif;backgro
 .btn-primary{width:100%;padding:13px;background:var(--text);color:#fff;border:none;border-radius:var(--rs);font-size:16px;font-weight:600;cursor:pointer;}
 .btn-primary:active{opacity:.8;}
 .errmsg{font-size:13px;color:var(--red);min-height:18px;margin-bottom:8px;text-align:center;}
-
-/* APP LAYOUT */
 .topbar{background:var(--surface);border-bottom:1px solid var(--border);padding:12px 16px 10px;flex-shrink:0;display:flex;justify-content:space-between;align-items:center;}
 .tb-title{font-size:15px;font-weight:700;}
 .tb-sub{font-size:11px;color:var(--text2);margin-top:1px;}
+.tb-right{display:flex;align-items:center;gap:8px;}
+.sync-dot{width:7px;height:7px;border-radius:50%;background:var(--text3);flex-shrink:0;transition:background .3s;}
+.sync-dot.syncing{background:var(--amber);animation:pulse 1s infinite;}
+.sync-dot.ok{background:var(--green);}
+.sync-dot.err{background:var(--red);}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.4;}}
 .tb-logout{background:none;border:none;font-size:12px;color:var(--text2);cursor:pointer;padding:4px 8px;}
 .content{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:12px 12px 0;}
 .bottomnav{background:var(--surface);border-top:1px solid var(--border);flex-shrink:0;display:flex;padding-bottom:env(safe-area-inset-bottom);}
@@ -48,53 +48,47 @@ body{font-family:-apple-system,'SF Pro Text','Helvetica Neue',sans-serif;backgro
 .ni-icon{font-size:19px;line-height:1;}
 .ni-label{font-size:9px;color:var(--text3);letter-spacing:.02em;font-weight:500;}
 .ni.on .ni-label{color:var(--text);font-weight:700;}
-
-/* CARDS */
 .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:13px 15px;margin-bottom:10px;}
 .ctitle{font-size:10px;font-weight:700;color:var(--text2);letter-spacing:.07em;text-transform:uppercase;margin-bottom:11px;}
-
-/* METRICS */
 .mgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;}
 .metric{background:var(--surface);border:1px solid var(--border);border-radius:var(--rs);padding:11px 13px;}
 .mlabel{font-size:11px;color:var(--text2);margin-bottom:3px;}
 .mval{font-size:19px;font-weight:700;color:var(--text);}
-.mval.r{color:var(--red);}.mval.g{color:var(--green);}.mval.a{color:var(--amber);}.mval.b{color:var(--blue);}
-
-/* MONTH NAV */
+.mval.r{color:var(--red);}.mval.g{color:var(--green);}.mval.a{color:var(--amber);}
+/* SKELETON */
+.skel{background:linear-gradient(90deg,#ede9e3 25%,#e5e1da 50%,#ede9e3 75%);background-size:200% 100%;animation:shimmer 1.4s infinite;border-radius:6px;}
+@keyframes shimmer{0%{background-position:200% 0;}100%{background-position:-200% 0;}}
+.skel-metric{height:60px;border-radius:var(--rs);}
+.skel-row{height:18px;margin-bottom:8px;}
+.skel-row.short{width:60%;}
 .mnav{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
 .mnbtn{background:none;border:1px solid var(--border2);border-radius:var(--rs);width:30px;height:30px;font-size:16px;color:var(--text2);cursor:pointer;display:flex;align-items:center;justify-content:center;}
 .mnlabel{font-size:15px;font-weight:700;}
-
-/* FORM */
 .field{margin-bottom:11px;}
 .fi{width:100%;padding:10px 12px;border:1px solid var(--border2);border-radius:var(--rs);font-size:15px;background:var(--surface);color:var(--text);outline:none;font-family:inherit;appearance:none;}
 .fi:focus{border-color:var(--text);}
 .fi::placeholder{color:var(--text3);}
 select.fi{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 5 5-5z' fill='%23a09e98'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 11px center;padding-right:28px;}
-.savebtn{width:100%;padding:13px;background:var(--text);color:#fff;border:none;border-radius:var(--rs);font-size:15px;font-weight:700;cursor:pointer;margin-top:6px;}
+.savebtn{width:100%;padding:13px;background:var(--text);color:#fff;border:none;border-radius:var(--rs);font-size:15px;font-weight:700;cursor:pointer;margin-top:6px;position:relative;overflow:hidden;}
 .savebtn:active{opacity:.8;}
+.savebtn.saving{opacity:.6;pointer-events:none;}
+.savebtn.saving::after{content:'Saving...';position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:inherit;}
 .btn-outline{width:100%;padding:11px;background:transparent;color:var(--text2);border:1px solid var(--border2);border-radius:var(--rs);font-size:14px;cursor:pointer;margin-top:4px;}
-
-/* CHIPS */
 .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px;}
 .chip{padding:6px 13px;border-radius:20px;border:1px solid var(--border2);background:var(--surface2);font-size:13px;cursor:pointer;color:var(--text2);user-select:none;}
 .chip.on{background:var(--text);color:#fff;border-color:var(--text);}
-
-/* SPLIT PREVIEW */
 .sbox{background:var(--surface2);border-radius:var(--rs);padding:9px 13px;margin-top:8px;}
 .srow{display:flex;justify-content:space-between;font-size:13px;padding:3px 0;color:var(--text2);}
 .srow b{color:var(--text);font-weight:700;}
-
-/* LIST ITEMS */
 .li{padding:11px 0;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;}
 .li:last-child{border-bottom:none;}
+.li.pending-sync{opacity:.6;}
+.li.pending-sync::after{content:'⏳';font-size:11px;margin-left:4px;}
 .li-l{flex:1;min-width:0;}
 .li-title{font-size:14px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .li-sub{font-size:11px;color:var(--text2);margin-top:2px;}
 .li-amt{font-size:15px;font-weight:700;flex-shrink:0;margin-left:10px;}
 .tag{background:var(--surface2);border-radius:3px;padding:2px 6px;font-size:10px;color:var(--text2);display:inline-block;margin-right:3px;}
-
-/* PERSON ROW */
 .prow{padding:11px 0;border-bottom:1px solid var(--border);display:flex;align-items:center;}
 .prow:last-child{border-bottom:none;}
 .av{width:36px;height:36px;border-radius:50%;background:#dbeafe;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--blue);flex-shrink:0;}
@@ -104,8 +98,6 @@ select.fi{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.o
 .pamt{font-size:14px;font-weight:700;margin-right:8px;}
 .pamt.due{color:var(--red);}.pamt.ok{color:var(--green);}
 .paidbtn{font-size:11px;padding:5px 11px;border:1px solid var(--border2);border-radius:20px;background:var(--surface2);color:var(--text2);cursor:pointer;white-space:nowrap;}
-
-/* CC CARD */
 .cccard{background:linear-gradient(135deg,#1a1917,#38362f);border-radius:16px;padding:18px;color:#fff;margin-bottom:10px;}
 .cc-bank{font-size:10px;opacity:.55;letter-spacing:.1em;font-weight:600;}
 .cc-amt{font-size:26px;font-weight:800;margin:5px 0 1px;}
@@ -115,29 +107,22 @@ select.fi{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.o
 .cc-meta{display:flex;gap:20px;margin-top:13px;}
 .cc-mi{font-size:10px;opacity:.6;}
 .cc-mv{font-size:13px;font-weight:700;margin-top:1px;}
-
-/* MODAL */
 .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:300;align-items:flex-end;justify-content:center;}
 .overlay.open{display:flex;}
 .modal{background:var(--surface);border-radius:20px 20px 0 0;width:100%;max-width:480px;padding:18px 16px calc(28px + env(safe-area-inset-bottom));max-height:88vh;overflow-y:auto;}
 .mhandle{width:36px;height:4px;background:var(--border2);border-radius:2px;margin:0 auto 14px;}
 .mtitle{font-size:16px;font-weight:700;margin-bottom:14px;}
 .mclose{float:right;background:none;border:none;font-size:20px;color:var(--text2);cursor:pointer;margin-top:-2px;}
-
-/* TOAST */
 .toast{position:fixed;bottom:calc(72px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%) translateY(12px);background:var(--text);color:#fff;padding:9px 18px;border-radius:30px;font-size:13px;font-weight:500;opacity:0;transition:all .2s;pointer-events:none;white-space:nowrap;z-index:999;}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
-
 .empty{text-align:center;padding:2rem 1rem;color:var(--text2);font-size:14px;}
-.loading{text-align:center;padding:1.5rem;color:var(--text3);font-size:13px;}
-
-/* SECTIONS */
 .sec{display:none;}.sec.on{display:block;}
+.retry-bar{background:#fff3cd;border:1px solid #ffc107;border-radius:var(--rs);padding:8px 12px;font-size:12px;color:#856404;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;}
+.retry-btn{background:none;border:none;color:var(--blue);font-size:12px;cursor:pointer;font-weight:600;}
 </style>
 </head>
 <body>
 
-<!-- LOGIN SCREEN -->
 <div id="s-login">
   <div class="lbox">
     <div class="ltitle">Family Finance</div>
@@ -149,19 +134,21 @@ select.fi{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.o
     <label class="flabel">Password</label>
     <input class="finput" type="password" id="pw" placeholder="Enter your password" onkeydown="if(event.key==='Enter')doLogin()"/>
     <div class="errmsg" id="lerr"></div>
-    <button class="btn-primary" onclick="doLogin()">Sign in</button>
+    <button class="btn-primary" id="login-btn" onclick="doLogin()">Sign in</button>
     <div style="margin-top:12px;font-size:11px;color:var(--text3);text-align:center;">Default: wife1234 / husband1234</div>
   </div>
 </div>
 
-<!-- APP SCREEN -->
 <div id="s-app">
   <div class="topbar">
     <div>
       <div class="tb-title" id="tb-title">Family Finance</div>
       <div class="tb-sub" id="tb-sub"></div>
     </div>
-    <button class="tb-logout" onclick="logout()">Sign out</button>
+    <div class="tb-right">
+      <div class="sync-dot" id="sync-dot" title="Sync status"></div>
+      <button class="tb-logout" onclick="logout()">Sign out</button>
+    </div>
   </div>
 
   <div class="content" id="content">
@@ -172,7 +159,7 @@ select.fi{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.o
         <span class="mnlabel" id="dash-ml"></span>
         <button class="mnbtn" onclick="chMonth(1)">›</button>
       </div>
-      <div id="dash-body"><div class="loading">Loading...</div></div>
+      <div id="dash-body"></div>
     </div>
 
     <!-- ADD EXPENSE -->
@@ -197,9 +184,15 @@ select.fi{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.o
             <option>Utilities & Bills</option><option>Household</option><option>Education</option><option>Other</option>
           </select>
         </div>
-        <div class="field"><label class="flabel">Split with (tap to select)</label><div class="chips" id="e-chips"></div></div>
+        <div class="field"><label class="flabel">Split with</label><div class="chips" id="e-chips"></div></div>
+        <div id="behalf-toggle" style="display:none;margin-top:8px;">
+          <label style="display:flex;align-items:center;gap:10px;cursor:pointer;padding:10px 12px;background:var(--surface2);border-radius:var(--rs);border:1px solid var(--border2);">
+            <input type="checkbox" id="e-behalf" onchange="updSplit()" style="width:18px;height:18px;cursor:pointer;accent-color:var(--text);"/>
+            <span style="font-size:13px;color:var(--text2);">Full amount paid on their behalf <span style="color:var(--text);font-weight:600;">(recover 100%)</span></span>
+          </label>
+        </div>
         <div id="split-prev" style="display:none;" class="sbox"></div>
-        <button class="savebtn" onclick="saveExp()">Save Expense</button>
+        <button class="savebtn" id="exp-savebtn" onclick="saveExp()">Save Expense</button>
       </div>
     </div>
 
@@ -225,14 +218,14 @@ select.fi{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.o
           </select>
         </div>
         <div class="field"><label class="flabel">Note (optional)</label><input class="fi" type="text" id="i-note" placeholder="e.g. April salary"/></div>
-        <button class="savebtn" onclick="saveInc()">Save Income</button>
+        <button class="savebtn" id="inc-savebtn" onclick="saveInc()">Save Income</button>
       </div>
-      <div class="card"><div class="ctitle">This Month</div><div id="inc-list"><div class="loading">Loading...</div></div></div>
+      <div class="card"><div class="ctitle">This Month</div><div id="inc-list"></div></div>
     </div>
 
     <!-- LOG -->
     <div class="sec" id="sec-log">
-      <div class="card"><div class="ctitle">Expenses — <span id="log-ml"></span></div><div id="log-list"><div class="loading">Loading...</div></div></div>
+      <div class="card"><div class="ctitle">Expenses — <span id="log-ml"></span></div><div id="log-list"></div></div>
     </div>
 
     <!-- ACCOUNTS -->
@@ -241,8 +234,8 @@ select.fi{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.o
       <div class="card">
         <div class="ctitle">Opening Balances</div>
         <div style="display:flex;gap:8px;margin-bottom:10px;">
-          <select class="fi" id="b-mon" style="flex:1;"></select>
-          <input class="fi" type="number" id="b-yr" style="width:85px;"/>
+          <select class="fi" id="b-mon" style="flex:1;" onchange="loadBalForm()"></select>
+          <input class="fi" type="number" id="b-yr" style="width:85px;" onchange="loadBalForm()"/>
         </div>
         <div class="field"><label class="flabel">Canara Bank (₹)</label><input class="fi" type="number" id="b-can" placeholder="0" inputmode="numeric"/></div>
         <div class="field"><label class="flabel">HDFC Bank (₹)</label><input class="fi" type="number" id="b-hdf" placeholder="0" inputmode="numeric"/></div>
@@ -269,17 +262,15 @@ select.fi{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.o
     </div>
   </div>
 
-  <!-- BOTTOM NAV -->
   <div class="bottomnav">
     <div class="ni on" id="ni-dash" onclick="goTab('dash')"><div class="ni-icon">📊</div><div class="ni-label">Dashboard</div></div>
     <div class="ni" id="ni-add" onclick="goTab('add')"><div class="ni-icon">➕</div><div class="ni-label">Expense</div></div>
     <div class="ni" id="ni-inc" onclick="goTab('inc')"><div class="ni-icon">💰</div><div class="ni-label">Income</div></div>
-    <div class="ni" id="ni-log" onclick="goTab('log')"><div class="ni-label" style="font-size:19px;">📋</div><div class="ni-label">Log</div></div>
+    <div class="ni" id="ni-log" onclick="goTab('log')"><div class="ni-icon">📋</div><div class="ni-label">Log</div></div>
     <div class="ni" id="ni-acc" onclick="goTab('acc')"><div class="ni-icon">🏦</div><div class="ni-label">Accounts</div></div>
   </div>
 </div>
 
-<!-- PAID MODAL -->
 <div class="overlay" id="paid-modal">
   <div class="modal">
     <div class="mhandle"></div>
@@ -294,7 +285,7 @@ select.fi{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.o
       </select>
     </div>
     <div class="field"><label class="flabel">Date received</label><input class="fi" type="date" id="pm-date"/></div>
-    <div class="field"><label class="flabel">Note (optional)</label><input class="fi" type="text" id="pm-note" placeholder="UPI, cash, bank transfer..."/></div>
+    <div class="field"><label class="flabel">Note (optional)</label><input class="fi" type="text" id="pm-note" placeholder="UPI, cash, NEFT..."/></div>
     <button class="savebtn" onclick="confirmPaid()">Confirm Payment Received</button>
   </div>
 </div>
@@ -302,196 +293,337 @@ select.fi{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.o
 <div class="toast" id="toast"></div>
 
 <script>
-// ── IMPORTANT: Paste your Apps Script Web App URL below ──
-const API = 'https://script.google.com/macros/s/AKfycbxUO-XCqGjrD79PrKQXszzAs-i3-h5zIn6kRIQDem9Jdb6-VA_AGrQe3Wzw9I7ObwPq/exec';
+const API = 'YOUR_APPS_SCRIPT_WEB_APP_URL_HERE';
 
-const MF = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-const MS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const MF=['January','February','March','April','May','June','July','August','September','October','November','December'];
+const MS=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 
-let tok = null, usr = null;
-let people = [], selPpl = [];
-let vm = new Date().getMonth() + 1, vy = new Date().getFullYear();
-let paidPerson = '', paidAmt = 0;
+// ── LOCAL CACHE (instant UI) ─────────────────────────────
+const DB = {
+  get(k){ try{ const v=localStorage.getItem('ff_'+k); return v?JSON.parse(v):null; }catch(e){return null;} },
+  set(k,v){ try{ localStorage.setItem('ff_'+k,JSON.stringify(v)); }catch(e){} },
+  del(k){ localStorage.removeItem('ff_'+k); }
+};
 
-// ── API CALL (GET-based, works everywhere) ──────────────
-async function api(action, data) {
-  const payload = btoa(unescape(encodeURIComponent(JSON.stringify(data || {}))));
-  const url = API + '?action=' + action + '&data=' + encodeURIComponent(payload);
-  const res = await fetch(url);
-  return res.json();
+// Pending queue for offline/slow saves
+let pendingQueue = DB.get('queue') || [];
+function savePending(){ DB.set('queue', pendingQueue); }
+
+let tok=null, usr=null;
+let people=[], selPpl=[];
+let vm=new Date().getMonth()+1, vy=new Date().getFullYear();
+let paidPerson='', paidAmt=0;
+let syncTimer=null;
+
+// ── SYNC STATUS DOT ──────────────────────────────────────
+function setSyncStatus(s){ // 'syncing' | 'ok' | 'err' | 'idle'
+  const d=document.getElementById('sync-dot');
+  d.className='sync-dot'+(s!=='idle'?' '+s:'');
+  d.title={syncing:'Syncing...', ok:'All saved', err:'Sync failed — will retry', idle:''}[s]||'';
 }
 
-// ── AUTH ─────────────────────────────────────────────────
-let loginUser = 'wife';
-function selUser(u) {
-  loginUser = u;
-  document.getElementById('ut-wife').classList.toggle('on', u === 'wife');
-  document.getElementById('ut-husband').classList.toggle('on', u === 'husband');
-}
-
-async function doLogin() {
-  const pw = document.getElementById('pw').value;
-  document.getElementById('lerr').textContent = '';
-  if (!pw) { document.getElementById('lerr').textContent = 'Enter your password'; return; }
-  try {
-    const r = await api('login', { user: loginUser, password: pw });
-    if (!r.success) { document.getElementById('lerr').textContent = r.error || 'Wrong password'; return; }
-    tok = r.token; usr = r.user;
-    localStorage.setItem('ff_tok', tok);
-    localStorage.setItem('ff_usr', usr);
-    initApp();
-  } catch(e) {
-    document.getElementById('lerr').textContent = 'Cannot connect. Check internet.';
+// ── API CALL ─────────────────────────────────────────────
+async function api(action, data, timeout=12000){
+  const payload = btoa(unescape(encodeURIComponent(JSON.stringify(data||{}))));
+  const url = API+'?action='+action+'&data='+encodeURIComponent(payload);
+  const ctrl = new AbortController();
+  const tid = setTimeout(()=>ctrl.abort(), timeout);
+  try{
+    const res = await fetch(url, {signal:ctrl.signal});
+    clearTimeout(tid);
+    return await res.json();
+  } catch(e){
+    clearTimeout(tid);
+    throw e;
   }
 }
 
-function logout() {
-  tok = null; usr = null;
-  localStorage.removeItem('ff_tok'); localStorage.removeItem('ff_usr');
-  document.getElementById('s-app').style.display = 'none';
-  document.getElementById('s-login').style.display = 'flex';
-  document.getElementById('pw').value = '';
+// ── AUTH ─────────────────────────────────────────────────
+let loginUser='wife';
+function selUser(u){
+  loginUser=u;
+  document.getElementById('ut-wife').classList.toggle('on',u==='wife');
+  document.getElementById('ut-husband').classList.toggle('on',u==='husband');
+}
+
+async function doLogin(){
+  const pw=document.getElementById('pw').value;
+  const btn=document.getElementById('login-btn');
+  document.getElementById('lerr').textContent='';
+  if(!pw){ document.getElementById('lerr').textContent='Enter your password'; return; }
+
+  // Check cached credentials first (instant login if same user)
+  const cached=DB.get('creds');
+  if(cached && cached.user===loginUser && cached.pw===pw && cached.tok){
+    tok=cached.tok; usr=cached.user;
+    initApp(); return;
+  }
+
+  btn.textContent='Signing in...'; btn.style.opacity='.7';
+  try{
+    const r=await api('login',{user:loginUser,password:pw},15000);
+    btn.textContent='Sign in'; btn.style.opacity='1';
+    if(!r.success){ document.getElementById('lerr').textContent=r.error||'Wrong password'; return; }
+    tok=r.token; usr=r.user;
+    DB.set('tok',tok); DB.set('usr',usr);
+    DB.set('creds',{user:loginUser,pw,tok:r.token}); // cache for instant login
+    initApp();
+  } catch(e){
+    btn.textContent='Sign in'; btn.style.opacity='1';
+    document.getElementById('lerr').textContent='Cannot connect. Check internet & API URL.';
+  }
+}
+
+function logout(){
+  tok=null; usr=null;
+  DB.del('tok'); DB.del('usr'); DB.del('creds');
+  document.getElementById('s-app').style.display='none';
+  document.getElementById('s-login').style.display='flex';
+  document.getElementById('pw').value='';
 }
 
 // ── INIT ─────────────────────────────────────────────────
-async function initApp() {
-  document.getElementById('s-login').style.display = 'none';
-  document.getElementById('s-app').style.display = 'flex';
-  const now = new Date();
-  document.getElementById('tb-title').textContent = usr === 'wife' ? 'Hi! 👋' : 'Welcome back 👋';
-  document.getElementById('tb-sub').textContent = now.toLocaleDateString('en-IN', { weekday:'long', day:'numeric', month:'long' });
-  const td = now.toISOString().split('T')[0];
-  document.getElementById('e-date').value = td;
-  document.getElementById('i-date').value = td;
-  document.getElementById('pm-date').value = td;
-  const bm = document.getElementById('b-mon');
-  MF.forEach((m,i) => { const o = document.createElement('option'); o.value=i+1; o.textContent=m; if(i+1===now.getMonth()+1) o.selected=true; bm.appendChild(o); });
-  document.getElementById('b-yr').value = now.getFullYear();
-  await loadPeople();
-  loadDash();
+async function initApp(){
+  document.getElementById('s-login').style.display='none';
+  document.getElementById('s-app').style.display='flex';
+  const now=new Date();
+  document.getElementById('tb-title').textContent=usr==='wife'?'Hi! 👋':'Welcome back 👋';
+  document.getElementById('tb-sub').textContent=now.toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'long'});
+  const td=now.toISOString().split('T')[0];
+  ['e-date','i-date','pm-date'].forEach(id=>document.getElementById(id).value=td);
+
+  const bm=document.getElementById('b-mon');
+  MF.forEach((m,i)=>{ const o=document.createElement('option'); o.value=i+1; o.textContent=m; if(i+1===now.getMonth()+1) o.selected=true; bm.appendChild(o); });
+  document.getElementById('b-yr').value=now.getFullYear();
+
+  // Load people from cache instantly, then refresh
+  const cachedPpl=DB.get('people');
+  if(cachedPpl){ people=cachedPpl; renderChips(); renderPplList(); }
+
+  // Show dashboard from cache instantly
+  renderDashFromCache();
+
+  // Then fetch fresh data in background
+  refreshAll();
+
+  // Retry pending queue
+  flushQueue();
+}
+
+async function refreshAll(){
+  setSyncStatus('syncing');
+  try{
+    await Promise.all([loadPeopleFromServer(), loadDashFromServer()]);
+    setSyncStatus('ok');
+    setTimeout(()=>setSyncStatus('idle'),3000);
+  } catch(e){
+    setSyncStatus('err');
+  }
 }
 
 // ── TABS ─────────────────────────────────────────────────
-function goTab(t) {
-  ['dash','add','inc','log','acc'].forEach(x => {
-    document.getElementById('sec-'+x).classList.toggle('on', x===t);
-    document.getElementById('ni-'+x).classList.toggle('on', x===t);
+function goTab(t){
+  ['dash','add','inc','log','acc'].forEach(x=>{
+    document.getElementById('sec-'+x).classList.toggle('on',x===t);
+    document.getElementById('ni-'+x).classList.toggle('on',x===t);
   });
-  document.getElementById('content').scrollTop = 0;
-  if(t==='dash') loadDash();
-  if(t==='log') loadLog();
-  if(t==='inc') loadIncList();
-  if(t==='acc') { loadCard(); loadBalForm(); }
+  document.getElementById('content').scrollTop=0;
+  if(t==='dash') { renderDashFromCache(); loadDashFromServer(); }
+  if(t==='log') renderLog();
+  if(t==='inc') renderIncList();
+  if(t==='acc'){ loadCard(); loadBalForm(); }
 }
 
-// ── DASHBOARD ────────────────────────────────────────────
-function chMonth(d) {
-  vm += d;
-  if(vm < 1) { vm=12; vy--; }
-  if(vm > 12) { vm=1; vy++; }
-  loadDash();
+// ── DASHBOARD — instant from cache ───────────────────────
+function chMonth(d){
+  vm+=d;
+  if(vm<1){vm=12;vy--;} if(vm>12){vm=1;vy++;}
+  renderDashFromCache();
+  loadDashFromServer();
 }
 
-async function loadDash() {
-  document.getElementById('dash-ml').textContent = MF[vm-1] + ' ' + vy;
-  document.getElementById('dash-body').innerHTML = '<div class="loading">Loading...</div>';
-  const r = await api('getDashboard', { token: tok, month: vm, year: vy });
-  if(r.error) { document.getElementById('dash-body').innerHTML = '<div class="empty">'+r.error+'</div>'; return; }
+function renderDashFromCache(){
+  document.getElementById('dash-ml').textContent=MF[vm-1]+' '+vy;
+  const key='dash_'+vm+'_'+vy;
+  const cached=DB.get(key);
+  if(cached){ renderDashData(cached); return; }
+  // Show skeleton while loading
+  document.getElementById('dash-body').innerHTML=`
+    <div class="mgrid">
+      ${[1,2,3,4].map(()=>'<div class="metric skel skel-metric"></div>').join('')}
+    </div>
+    <div class="card">
+      ${[1,2,3].map(()=>'<div class="skel skel-row" style="margin-bottom:12px;"></div>').join('')}
+      <div class="skel skel-row short"></div>
+    </div>`;
+}
 
-  const sc = r.netSavings >= 0 ? 'g' : 'r';
-  let h = `<div class="mgrid">
+async function loadDashFromServer(){
+  try{
+    const r=await api('getDashboard',{token:tok,month:vm,year:vy});
+    if(r.error) return;
+    DB.set('dash_'+vm+'_'+vy, r);
+    renderDashData(r);
+  } catch(e){ setSyncStatus('err'); }
+}
+
+function renderDashData(r){
+  const sc=r.netSavings>=0?'g':'r';
+  let h=`<div class="mgrid">
     <div class="metric"><div class="mlabel">Income</div><div class="mval g">₹${f(r.totalIncome)}</div></div>
     <div class="metric"><div class="mlabel">Expenses</div><div class="mval r">₹${f(r.totalExpenses)}</div></div>
     <div class="metric"><div class="mlabel">Net Savings</div><div class="mval ${sc}">₹${f(Math.abs(r.netSavings))}</div></div>
     <div class="metric"><div class="mlabel">To Recover</div><div class="mval a">₹${f(r.totalPending)}</div></div>
   </div>`;
-
-  const owed = r.owedByPerson || {};
-  const keys = Object.keys(owed);
-  if(keys.length > 0) {
-    h += '<div class="card"><div class="ctitle">Who owes you</div>';
-    keys.forEach(p => {
-      const d = owed[p];
-      const rem = Math.round(d.owed - d.paid);
-      const ini = p.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2);
-      h += `<div class="prow">
+  const owed=r.owedByPerson||{};
+  const keys=Object.keys(owed);
+  if(keys.length>0){
+    h+='<div class="card"><div class="ctitle">Who owes you</div>';
+    keys.forEach(p=>{
+      const d=owed[p], rem=Math.round(d.owed-d.paid);
+      const ini=p.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2);
+      h+=`<div class="prow">
         <div class="av">${ini}</div>
         <div class="pinfo"><div class="pname">${p}</div><div class="psub">Paid ₹${f(d.paid)} of ₹${f(d.owed)}</div></div>
         <span class="pamt ${rem>0?'due':'ok'}">₹${f(rem)}</span>
-        ${rem>0 ? `<button class="paidbtn" onclick="openPaid('${p}',${rem})">Paid ✓</button>` : '<span style="font-size:10px;color:var(--green);">Clear</span>'}
+        ${rem>0?`<button class="paidbtn" onclick="openPaid('${p}',${rem})">Paid ✓</button>`:'<span style="font-size:10px;color:var(--green);">Clear</span>'}
       </div>`;
     });
-    h += '</div>';
-  } else if(r.expenseCount > 0) {
-    h += '<div class="card"><div class="empty" style="padding:1rem;">No split expenses this month</div></div>';
+    h+='</div>';
   }
-
-  h += `<button class="btn-outline" onclick="copyWA()">📋 Copy summary for WhatsApp</button>`;
-  document.getElementById('dash-body').innerHTML = h;
+  if(pendingQueue.length>0){
+    h+=`<div class="retry-bar">⏳ ${pendingQueue.length} item(s) waiting to sync <button class="retry-btn" onclick="flushQueue()">Retry now</button></div>`;
+  }
+  h+=`<button class="btn-outline" onclick="copyWA()">📋 Copy summary for WhatsApp</button>`;
+  document.getElementById('dash-body').innerHTML=h;
 }
 
-// ── EXPENSES ─────────────────────────────────────────────
-async function loadPeople() {
-  const r = await api('getPeople', { token: tok });
-  people = r.people || [];
-  renderChips();
-  renderPplList();
+// ── EXPENSES — optimistic save ────────────────────────────
+async function loadPeopleFromServer(){
+  const r=await api('getPeople',{token:tok});
+  if(r.people){ people=r.people; DB.set('people',people); renderChips(); renderPplList(); }
 }
 
-function renderChips() {
-  document.getElementById('e-chips').innerHTML = people.map(p =>
+function renderChips(){
+  document.getElementById('e-chips').innerHTML=people.map(p=>
     `<div class="chip ${selPpl.includes(p)?'on':''}" onclick="togChip('${p}')">${p}</div>`
   ).join('');
+  // Show "behalf of" toggle only when exactly 1 person selected
+  const bt=document.getElementById('behalf-toggle');
+  bt.style.display=selPpl.length===1?'block':'none';
+  if(selPpl.length!==1) document.getElementById('e-behalf').checked=false;
   updSplit();
 }
 
-function togChip(p) {
-  const i = selPpl.indexOf(p);
-  if(i>=0) selPpl.splice(i,1); else selPpl.push(p);
-  renderChips();
-}
+function togChip(p){ const i=selPpl.indexOf(p); if(i>=0) selPpl.splice(i,1); else selPpl.push(p); renderChips(); }
 
-function updSplit() {
-  const amt = parseFloat(document.getElementById('e-amt').value) || 0;
-  const el = document.getElementById('split-prev');
-  if(!amt || selPpl.length===0) { el.style.display='none'; return; }
+function updSplit(){
+  const amt=parseFloat(document.getElementById('e-amt').value)||0;
+  const el=document.getElementById('split-prev');
+  if(!amt||selPpl.length===0){el.style.display='none';return;}
+  const behalf=document.getElementById('e-behalf').checked;
   el.style.display='block';
-  const share = Math.round(amt / (selPpl.length + 1));
-  el.innerHTML = '<div style="font-size:10px;font-weight:700;color:var(--text2);letter-spacing:.05em;margin-bottom:5px;">SPLIT PREVIEW</div>' +
-    selPpl.map(p=>`<div class="srow"><span>${p}</span><b>₹${f(share)}</b></div>`).join('') +
-    `<div class="srow" style="border-top:1px solid var(--border);margin-top:4px;padding-top:5px;"><span>Your share</span><b>₹${f(share)}</b></div>`;
+  if(behalf && selPpl.length===1){
+    // Full amount owed by that one person, your share = ₹0
+    el.innerHTML='<div style="font-size:10px;font-weight:700;color:var(--text2);letter-spacing:.05em;margin-bottom:5px;">PAID ON BEHALF</div>'+
+      `<div class="srow"><span>${selPpl[0]} owes</span><b style="color:var(--red);">₹${f(amt)}</b></div>`+
+      `<div class="srow" style="border-top:1px solid var(--border);margin-top:4px;padding-top:5px;"><span>Your share</span><b>₹0</b></div>`;
+  } else {
+    const share=Math.round(amt/(selPpl.length+1));
+    el.innerHTML='<div style="font-size:10px;font-weight:700;color:var(--text2);letter-spacing:.05em;margin-bottom:5px;">SPLIT PREVIEW</div>'+
+      selPpl.map(p=>`<div class="srow"><span>${p}</span><b>₹${f(share)}</b></div>`).join('')+
+      `<div class="srow" style="border-top:1px solid var(--border);margin-top:4px;padding-top:5px;"><span>Your share</span><b>₹${f(share)}</b></div>`;
+  }
 }
 
-async function saveExp() {
-  const desc = document.getElementById('e-desc').value.trim();
-  const amt = parseFloat(document.getElementById('e-amt').value);
-  if(!desc) { toast('Enter a description'); return; }
-  if(!amt || amt<=0) { toast('Enter a valid amount'); return; }
-  const r = await api('addExpense', {
+async function saveExp(){
+  const desc=document.getElementById('e-desc').value.trim();
+  const amt=parseFloat(document.getElementById('e-amt').value);
+  if(!desc){toast('Enter a description');return;}
+  if(!amt||amt<=0){toast('Enter a valid amount');return;}
+
+  const behalf=document.getElementById('e-behalf').checked && selPpl.length===1;
+  const expData={
     token:tok, description:desc, amount:amt,
     date:document.getElementById('e-date').value,
     account:document.getElementById('e-acct').value,
     category:document.getElementById('e-cat').value,
-    splitWith:selPpl
-  });
-  if(r.error) { toast(r.error); return; }
+    splitWith:[...selPpl],
+    behalf: behalf  // flag for backend
+  };
+
+  // ── OPTIMISTIC: update UI immediately ──
+  const tempId='TEMP'+Date.now();
+  const now=new Date();
+  const share = selPpl.length===0 ? 0 : behalf ? amt : Math.round(amt/(selPpl.length+1));
+  const localExp={
+    id:tempId, date:expData.date, description:desc, amount:amt,
+    account:expData.account, category:expData.category,
+    splitWith:[...selPpl],
+    share: share,
+    month:now.getMonth()+1, year:now.getFullYear(),
+    paid:{}, _pending:true
+  };
+
+  // Add to local cache
+  const cacheKey='exp_'+localExp.month+'_'+localExp.year;
+  const cached=DB.get(cacheKey)||[];
+  cached.unshift(localExp);
+  DB.set(cacheKey, cached);
+
+  // Invalidate dashboard cache so it refreshes
+  DB.del('dash_'+localExp.month+'_'+localExp.year);
+
+  // Clear form immediately
   document.getElementById('e-desc').value='';
   document.getElementById('e-amt').value='';
+  document.getElementById('e-behalf').checked=false;
+  document.getElementById('behalf-toggle').style.display='none';
   selPpl=[]; renderChips();
   toast('Expense saved!');
   goTab('dash');
+
+  // ── BACKGROUND SYNC ──
+  const btn=document.getElementById('exp-savebtn');
+  setSyncStatus('syncing');
+  try{
+    const r=await api('addExpense',expData);
+    if(r.error) throw new Error(r.error);
+    // Remove temp, refresh from server
+    const updated=(DB.get(cacheKey)||[]).filter(e=>e.id!==tempId);
+    DB.set(cacheKey,updated);
+    await loadDashFromServer();
+    setSyncStatus('ok');
+    setTimeout(()=>setSyncStatus('idle'),3000);
+  } catch(e){
+    // Queue for retry
+    pendingQueue.push({action:'addExpense',data:expData,tempId,cacheKey});
+    savePending();
+    setSyncStatus('err');
+    toast('Saved locally — will sync when online');
+  }
 }
 
-async function loadLog() {
-  document.getElementById('log-ml').textContent = MF[vm-1];
-  document.getElementById('log-list').innerHTML = '<div class="loading">Loading...</div>';
-  const r = await api('getExpenses', { token:tok, month:vm, year:vy });
-  const exps = r.expenses || [];
-  if(!exps.length) { document.getElementById('log-list').innerHTML='<div class="empty">No expenses this month</div>'; return; }
-  document.getElementById('log-list').innerHTML = exps.map(e => {
-    const d = new Date(e.date);
-    const sp = e.splitWith&&e.splitWith.length>0 ? `Split: ${e.splitWith.join(', ')} · ₹${f(e.share)} each` : 'Not split';
-    return `<div class="li">
+function renderLog(){
+  document.getElementById('log-ml').textContent=MF[vm-1];
+  const cacheKey='exp_'+vm+'_'+vy;
+  const cached=DB.get(cacheKey)||[];
+
+  // Show cached immediately
+  renderLogData(cached);
+
+  // Refresh from server
+  api('getExpenses',{token:tok,month:vm,year:vy}).then(r=>{
+    if(r.expenses){ DB.set(cacheKey,r.expenses); renderLogData(r.expenses); }
+  }).catch(()=>{});
+}
+
+function renderLogData(exps){
+  if(!exps.length){document.getElementById('log-list').innerHTML='<div class="empty">No expenses this month</div>';return;}
+  document.getElementById('log-list').innerHTML=exps.map(e=>{
+    const d=new Date(e.date);
+    const sp=e.splitWith&&e.splitWith.length>0?`Split: ${e.splitWith.join(', ')} · ₹${f(e.share)} each`:'Not split';
+    return `<div class="li${e._pending?' pending-sync':''}">
       <div class="li-l">
         <div class="li-title">${e.description}</div>
         <div class="li-sub"><span class="tag">${e.account}</span><span class="tag">${e.category}</span></div>
@@ -503,76 +635,98 @@ async function loadLog() {
 }
 
 // ── INCOME ───────────────────────────────────────────────
-async function saveInc() {
-  const src = document.getElementById('i-src').value.trim();
-  const amt = parseFloat(document.getElementById('i-amt').value);
-  if(!src) { toast('Enter income source'); return; }
-  if(!amt||amt<=0) { toast('Enter valid amount'); return; }
-  const r = await api('addIncome', {
-    token:tok, source:src, amount:amt,
+async function saveInc(){
+  const src=document.getElementById('i-src').value.trim();
+  const amt=parseFloat(document.getElementById('i-amt').value);
+  if(!src){toast('Enter income source');return;}
+  if(!amt||amt<=0){toast('Enter valid amount');return;}
+  const btn=document.getElementById('inc-savebtn');
+  btn.classList.add('saving');
+  const data={token:tok,source:src,amount:amt,
     date:document.getElementById('i-date').value,
     type:document.getElementById('i-type').value,
     receivedIn:document.getElementById('i-acct').value,
-    note:document.getElementById('i-note').value.trim()
-  });
-  if(r.error) { toast(r.error); return; }
-  document.getElementById('i-src').value='';
-  document.getElementById('i-amt').value='';
-  document.getElementById('i-note').value='';
-  toast('Income saved!');
-  loadIncList();
+    note:document.getElementById('i-note').value.trim()};
+  try{
+    const r=await api('addIncome',data);
+    btn.classList.remove('saving');
+    if(r.error){toast(r.error);return;}
+    document.getElementById('i-src').value='';
+    document.getElementById('i-amt').value='';
+    document.getElementById('i-note').value='';
+    DB.del('dash_'+vm+'_'+vy);
+    toast('Income saved!');
+    renderIncList();
+  } catch(e){
+    btn.classList.remove('saving');
+    toast('Could not save — check connection');
+  }
 }
 
-async function loadIncList() {
-  document.getElementById('inc-list').innerHTML='<div class="loading">Loading...</div>';
-  const now = new Date();
-  const r = await api('getIncome', { token:tok, month:now.getMonth()+1, year:now.getFullYear() });
-  const inc = r.income || [];
-  if(!inc.length) { document.getElementById('inc-list').innerHTML='<div class="empty">No income this month</div>'; return; }
-  const total = inc.reduce((s,i)=>s+parseFloat(i.amount||0),0);
-  document.getElementById('inc-list').innerHTML =
-    `<div style="font-size:13px;color:var(--green);font-weight:700;margin-bottom:8px;">Total: ₹${f(total)}</div>` +
-    inc.map(i => {
-      const d = new Date(i.date);
+function renderIncList(){
+  const cached=DB.get('inc_'+vm+'_'+vy)||[];
+  if(cached.length) renderIncData(cached);
+  else document.getElementById('inc-list').innerHTML='<div class="empty">No income this month</div>';
+  api('getIncome',{token:tok,month:vm,year:vy}).then(r=>{
+    if(r.income){ DB.set('inc_'+vm+'_'+vy,r.income); renderIncData(r.income); }
+  }).catch(()=>{});
+}
+
+function renderIncData(inc){
+  if(!inc.length){document.getElementById('inc-list').innerHTML='<div class="empty">No income this month</div>';return;}
+  const total=inc.reduce((s,i)=>s+parseFloat(i.amount||0),0);
+  document.getElementById('inc-list').innerHTML=
+    `<div style="font-size:13px;color:var(--green);font-weight:700;margin-bottom:8px;">Total: ₹${f(total)}</div>`+
+    inc.map(i=>{
+      const d=new Date(i.date);
       return `<div class="li"><div class="li-l"><div class="li-title">${i.source}</div><div class="li-sub"><span class="tag">${i.type}</span><span class="tag">${i.receivedIn}</span></div><div class="li-sub">${d.getDate()} ${MS[d.getMonth()]}${i.note?' · '+i.note:''}</div></div><div class="li-amt" style="color:var(--green);">+₹${f(i.amount)}</div></div>`;
     }).join('');
 }
 
 // ── BALANCES ─────────────────────────────────────────────
-async function loadBalForm() {
-  const m = parseInt(document.getElementById('b-mon').value);
-  const y = parseInt(document.getElementById('b-yr').value);
-  const r = await api('getBalances', { token:tok, month:m, year:y });
-  const b = r.balances || {};
-  document.getElementById('b-can').value = b.canara || '';
-  document.getElementById('b-hdf').value = b.hdfc_bank || '';
-  document.getElementById('b-idf').value = b.idfc || '';
-  document.getElementById('b-csh').value = b.cash || '';
+async function loadBalForm(){
+  const m=parseInt(document.getElementById('b-mon').value);
+  const y=parseInt(document.getElementById('b-yr').value);
+  try{
+    const r=await api('getBalances',{token:tok,month:m,year:y});
+    const b=r.balances||{};
+    document.getElementById('b-can').value=b.canara||'';
+    document.getElementById('b-hdf').value=b.hdfc_bank||'';
+    document.getElementById('b-idf').value=b.idfc||'';
+    document.getElementById('b-csh').value=b.cash||'';
+  } catch(e){}
 }
 
-async function saveBal() {
-  const m = parseInt(document.getElementById('b-mon').value);
-  const y = parseInt(document.getElementById('b-yr').value);
-  const r = await api('updateBalance', {
-    token:tok, month:m, year:y,
-    canara:parseFloat(document.getElementById('b-can').value)||0,
-    hdfc_bank:parseFloat(document.getElementById('b-hdf').value)||0,
-    idfc:parseFloat(document.getElementById('b-idf').value)||0,
-    cash:parseFloat(document.getElementById('b-csh').value)||0
-  });
-  if(r.error) { toast(r.error); return; }
-  toast('Balances saved!');
+async function saveBal(){
+  const m=parseInt(document.getElementById('b-mon').value);
+  const y=parseInt(document.getElementById('b-yr').value);
+  try{
+    const r=await api('updateBalance',{token:tok,month:m,year:y,
+      canara:parseFloat(document.getElementById('b-can').value)||0,
+      hdfc_bank:parseFloat(document.getElementById('b-hdf').value)||0,
+      idfc:parseFloat(document.getElementById('b-idf').value)||0,
+      cash:parseFloat(document.getElementById('b-csh').value)||0});
+    if(r.error){toast(r.error);return;}
+    toast('Balances saved!');
+  } catch(e){toast('Could not save — check connection');}
 }
 
-async function loadCard() {
-  const r = await api('getCardInfo', { token:tok });
-  if(r.error) return;
-  document.getElementById('c-open').value = r.openingBalance || '';
-  document.getElementById('c-lim').value = r.limit || '';
-  document.getElementById('c-stmt').value = r.statementDate || '';
-  document.getElementById('c-due').value = r.dueDate || '';
-  const u = Math.min(r.utilization||0, 100);
-  document.getElementById('cc-widget').innerHTML = `
+async function loadCard(){
+  const cached=DB.get('card');
+  if(cached) renderCardData(cached);
+  try{
+    const r=await api('getCardInfo',{token:tok});
+    if(!r.error){ DB.set('card',r); renderCardData(r); }
+  } catch(e){}
+}
+
+function renderCardData(r){
+  document.getElementById('c-open').value=r.openingBalance||'';
+  document.getElementById('c-lim').value=r.limit||'';
+  document.getElementById('c-stmt').value=r.statementDate||'';
+  document.getElementById('c-due').value=r.dueDate||'';
+  const u=Math.min(r.utilization||0,100);
+  document.getElementById('cc-widget').innerHTML=`
     <div class="cccard">
       <div class="cc-bank">HDFC CREDIT CARD</div>
       <div class="cc-amt">₹${f(r.outstanding)}</div>
@@ -586,99 +740,123 @@ async function loadCard() {
     </div>`;
 }
 
-async function saveCard() {
-  const r = await api('updateCardCycle', {
-    token:tok,
-    openingBalance:parseFloat(document.getElementById('c-open').value)||0,
-    limit:parseFloat(document.getElementById('c-lim').value)||100000,
-    statementDate:parseInt(document.getElementById('c-stmt').value)||5,
-    dueDate:parseInt(document.getElementById('c-due').value)||25
-  });
-  if(r.error) { toast(r.error); return; }
-  toast('Card settings saved!');
-  loadCard();
+async function saveCard(){
+  try{
+    const r=await api('updateCardCycle',{token:tok,
+      openingBalance:parseFloat(document.getElementById('c-open').value)||0,
+      limit:parseFloat(document.getElementById('c-lim').value)||100000,
+      statementDate:parseInt(document.getElementById('c-stmt').value)||5,
+      dueDate:parseInt(document.getElementById('c-due').value)||25});
+    if(r.error){toast(r.error);return;}
+    DB.del('card');
+    toast('Card settings saved!');
+    loadCard();
+  } catch(e){toast('Could not save — check connection');}
 }
 
 // ── PEOPLE ───────────────────────────────────────────────
-function renderPplList() {
-  const el = document.getElementById('ppl-list');
-  el.innerHTML = people.map((p,i) =>
+function renderPplList(){
+  const el=document.getElementById('ppl-list');
+  el.innerHTML=people.map(p=>
     `<div class="li"><div class="li-l"><div class="li-title">${p}</div></div>
     <button style="background:none;border:none;font-size:18px;color:var(--text3);cursor:pointer;padding:4px;" onclick="remPerson('${p}')">×</button></div>`
-  ).join('') || '<div class="empty" style="padding:.5rem;">No people yet</div>';
+  ).join('')||'<div class="empty" style="padding:.5rem;">No people yet</div>';
 }
 
-async function addPerson() {
-  const name = document.getElementById('new-person').value.trim();
+async function addPerson(){
+  const name=document.getElementById('new-person').value.trim();
   if(!name) return;
-  await api('addPerson', { token:tok, name });
+  await api('addPerson',{token:tok,name});
   document.getElementById('new-person').value='';
-  await loadPeople();
-  toast(name + ' added!');
+  await loadPeopleFromServer();
+  toast(name+' added!');
 }
 
-async function remPerson(name) {
-  await api('removePerson', { token:tok, name });
-  await loadPeople();
+async function remPerson(name){
+  await api('removePerson',{token:tok,name});
+  await loadPeopleFromServer();
 }
 
 // ── PAID MODAL ────────────────────────────────────────────
-function openPaid(person, amt) {
-  paidPerson = person; paidAmt = amt;
-  document.getElementById('pm-person').value = person;
-  document.getElementById('pm-amt').value = amt;
+function openPaid(person,amt){
+  paidPerson=person; paidAmt=amt;
+  document.getElementById('pm-person').value=person;
+  document.getElementById('pm-amt').value=amt;
   document.getElementById('paid-modal').classList.add('open');
 }
+function closeModal(){ document.getElementById('paid-modal').classList.remove('open'); }
 
-function closeModal() {
-  document.getElementById('paid-modal').classList.remove('open');
+async function confirmPaid(){
+  const amt=parseFloat(document.getElementById('pm-amt').value)||0;
+  if(!amt){toast('Enter amount received');return;}
+  try{
+    const expR=await api('getExpenses',{token:tok,month:vm,year:vy});
+    const expIds=(expR.expenses||[]).filter(e=>e.splitWith&&e.splitWith.includes(paidPerson)&&!e.paid[paidPerson]).map(e=>e.id);
+    await api('addPayment',{
+      token:tok,person:paidPerson,amount:amt,
+      receivedIn:document.getElementById('pm-acct').value,
+      date:document.getElementById('pm-date').value,
+      note:document.getElementById('pm-note').value.trim(),
+      expenseIds:expIds,month:vm,year:vy
+    });
+    closeModal();
+    DB.del('dash_'+vm+'_'+vy);
+    toast(paidPerson+' marked paid!');
+    loadDashFromServer();
+  } catch(e){ toast('Could not save — check connection'); }
 }
 
-async function confirmPaid() {
-  const amt = parseFloat(document.getElementById('pm-amt').value)||0;
-  if(!amt) { toast('Enter amount received'); return; }
-  const expR = await api('getExpenses', { token:tok, month:vm, year:vy });
-  const expIds = (expR.expenses||[])
-    .filter(e => e.splitWith&&e.splitWith.includes(paidPerson)&&!e.paid[paidPerson])
-    .map(e => e.id);
-  await api('addPayment', {
-    token:tok, person:paidPerson, amount:amt,
-    receivedIn:document.getElementById('pm-acct').value,
-    date:document.getElementById('pm-date').value,
-    note:document.getElementById('pm-note').value.trim(),
-    expenseIds:expIds, month:vm, year:vy
-  });
-  closeModal();
-  toast(paidPerson + ' marked paid! Received in ' + document.getElementById('pm-acct').value);
-  loadDash();
+// ── OFFLINE QUEUE ────────────────────────────────────────
+async function flushQueue(){
+  if(!pendingQueue.length) return;
+  setSyncStatus('syncing');
+  const failed=[];
+  for(const item of pendingQueue){
+    try{
+      const r=await api(item.action,item.data);
+      if(r.error) throw new Error(r.error);
+      // Remove temp from cache
+      if(item.cacheKey&&item.tempId){
+        const updated=(DB.get(item.cacheKey)||[]).filter(e=>e.id!==item.tempId);
+        DB.set(item.cacheKey,updated);
+      }
+    } catch(e){ failed.push(item); }
+  }
+  pendingQueue=failed;
+  savePending();
+  if(!failed.length){
+    setSyncStatus('ok');
+    setTimeout(()=>setSyncStatus('idle'),3000);
+    await loadDashFromServer();
+    toast('All items synced!');
+  } else {
+    setSyncStatus('err');
+  }
 }
 
 // ── WHATSAPP ─────────────────────────────────────────────
-async function copyWA() {
-  const r = await api('getDashboard', { token:tok, month:vm, year:vy });
-  const owed = r.owedByPerson || {};
-  let txt = `*Family Finance — ${MF[vm-1]} ${vy}*\n\nIncome: ₹${f(r.totalIncome)}\nExpenses: ₹${f(r.totalExpenses)}\nNet Savings: ₹${f(r.netSavings)}\n`;
-  const pending = Object.entries(owed).filter(([,d])=>Math.round(d.owed-d.paid)>0);
-  if(pending.length) { txt+='\n*Pending:*\n'; pending.forEach(([p,d])=>{ txt+=`${p} owes ₹${f(Math.round(d.owed-d.paid))}\n`; }); }
-  try { await navigator.clipboard.writeText(txt); toast('Copied! Paste in WhatsApp'); }
-  catch(e) { toast('Could not auto-copy — try manually'); }
+async function copyWA(){
+  const cached=DB.get('dash_'+vm+'_'+vy);
+  const r=cached||(await api('getDashboard',{token:tok,month:vm,year:vy}));
+  const owed=r.owedByPerson||{};
+  let txt=`*Family Finance — ${MF[vm-1]} ${vy}*\n\nIncome: ₹${f(r.totalIncome)}\nExpenses: ₹${f(r.totalExpenses)}\nNet Savings: ₹${f(r.netSavings)}\n`;
+  const pending=Object.entries(owed).filter(([,d])=>Math.round(d.owed-d.paid)>0);
+  if(pending.length){txt+='\n*Pending:*\n';pending.forEach(([p,d])=>{txt+=`${p} owes ₹${f(Math.round(d.owed-d.paid))}\n`;});}
+  try{await navigator.clipboard.writeText(txt);toast('Copied! Paste in WhatsApp');}
+  catch(e){toast('Could not copy — try manually');}
 }
 
-// ── HELPERS ───────────────────────────────────────────────
-function f(n) { return Math.round(n||0).toLocaleString('en-IN'); }
-
-function toast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'), 2800);
+function f(n){return Math.round(n||0).toLocaleString('en-IN');}
+function toast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2800);
 }
 
-// ── AUTO LOGIN ───────────────────────────────────────────
-window.addEventListener('load', () => {
-  const st = localStorage.getItem('ff_tok');
-  const su = localStorage.getItem('ff_usr');
-  if(st && su) { tok=st; usr=su; initApp(); }
+// ── BOOT ─────────────────────────────────────────────────
+window.addEventListener('load',()=>{
+  const st=DB.get('tok'), su=DB.get('usr');
+  if(st&&su){tok=st;usr=su;initApp();}
 });
 </script>
 </body>
